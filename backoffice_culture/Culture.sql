@@ -25,7 +25,7 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.categorieculture (
-    idcatecult integer NOT NULL,
+    idcatecult serial NOT NULL,
     nomcatecult character varying,
     prix double precision
 );
@@ -38,7 +38,7 @@ ALTER TABLE public.categorieculture OWNER TO postgres;
 --
 
 CREATE TABLE public.parcelle (
-    idp integer NOT NULL,
+    idp serial NOT NULL,
     nomp character varying,
     taille integer
 );
@@ -51,7 +51,7 @@ ALTER TABLE public.parcelle OWNER TO postgres;
 --
 
 CREATE TABLE public.parcelleculture (
-    idpc integer NOT NULL,
+    idpc serial NOT NULL,
     idp integer,
     idcatecult integer,
     rendement integer
@@ -77,7 +77,7 @@ ALTER TABLE public.phototerrain OWNER TO postgres;
 --
 
 CREATE TABLE public.terrain (
-    idterrain integer NOT NULL,
+    idterrain serial NOT NULL,
     description character varying,
     geolocalisation character varying
 );
@@ -90,7 +90,7 @@ ALTER TABLE public.terrain OWNER TO postgres;
 --
 
 CREATE TABLE public.terrainparcelle (
-    idtp integer NOT NULL,
+    idtp serial NOT NULL,
     idterrain integer,
     idp integer
 );
@@ -103,7 +103,7 @@ ALTER TABLE public.terrainparcelle OWNER TO postgres;
 --
 
 CREATE TABLE public.terrainuser (
-    idterrainuser integer NOT NULL,
+    idterrainuser serial NOT NULL,
     idterrain integer,
     iduser integer
 );
@@ -116,7 +116,7 @@ ALTER TABLE public.terrainuser OWNER TO postgres;
 --
 
 CREATE TABLE public."user" (
-    iduser integer NOT NULL,
+    iduser serial NOT NULL,
     nomuser character varying,
     password character varying
 );

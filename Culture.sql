@@ -31,6 +31,11 @@ CREATE TABLE parcelle (
     nomp varchar(100),
     taille integer --en m2
 );
+INSERT INTO parcelle (nomp, taille) VALUES
+('Parcelle A', 500),
+('Parcelle B', 700),
+('Parcelle C', 1000);
+
 
 CREATE TABLE categorieculture (
     idcatecult serial PRIMARY KEY,
@@ -48,6 +53,10 @@ CREATE TABLE parcelleculture (
     idcatecult integer references categorieculture(idcatecult),
     rendement integer --kg/m2
 );
+INSERT INTO parcelleculture (daty, idp, idcatecult, rendement) VALUES
+('2024-01-23 12:00:00', 1, 3, 300),
+('2024-02-24 14:30:00', 2, 2, 500),
+('2024-03-25 10:45:00', 3, 2, 400);
 
 
 CREATE TABLE terrainparcelle (

@@ -10,21 +10,13 @@ INSERT INTO useruser (nomuser, password, idAdmin) VALUES ('admin', '123', true);
 CREATE TABLE terrain (
     idterrain serial PRIMARY KEY,
     description  varchar(100),
-    geolocalisation  varchar(100)
+    geolocalisation  varchar(100),
+    status int
 );
-
-CREATE TABLE terrainuser (
-    idterrainuser serial PRIMARY KEY,
-    idterrain integer references terrain(idterrain),
-    iduser integer references useruser(iduser)
-);
-
-CREATE TABLE phototerrain (
-    idphoto serial PRIMARY KEY,
-    idterrain integer references terrain(idterrain),
-    photo varchar(100)
-);
-
+INSERT INTO terrain (description, geolocalisation, status) VALUES
+('Terrain 1', 'Latitude: X, Longitude: Y', 1),
+('Terrain 2', 'Latitude: A, Longitude: B', 0),
+('Terrain 3', 'Latitude: C, Longitude: D', 0);
 
 CREATE TABLE parcelle (
     idp serial PRIMARY KEY,
@@ -36,10 +28,46 @@ INSERT INTO parcelle (nomp, taille) VALUES
 ('Parcelle B', 700),
 ('Parcelle C', 1000);
 
-CREATE TABLE demandeparcelle (
-    iddp serial PRIMARY KEY,
-    nom varchar(100),
-    taille integer
+
+CREATE TABLE terrainparcelle (
+    idtp serial PRIMARY KEY,
+    idterrain integer references terrain(idterrain),
+    idp integer references parcelle(idp)
+);
+INSERT INTO terrainparcelle (idterrain, idp) VALUES
+(1, 1),
+(1, 2);
+
+CREATE TABLE terrainuser (
+    idterrainuser serial PRIMARY KEY,
+    idterrain integer references terrain(idterrain),
+    iduser integer references useruser(iduser)
+);
+INSERT INTO terrainuser (idterrain, iduser) VALUES
+(1, 2);
+
+CREATE VIEW viewDetailsTerrain AS
+SELECT
+    t.idterrain,
+    t.description,
+    t.geolocalisation,
+    t.status, 
+    p.idp,
+    p.nomp,
+    p.taille,
+	tu.iduser,
+    u.nomuser  
+FROM
+    terrain t
+JOIN terrainparcelle tp ON t.idterrain = tp.idterrain
+JOIN parcelle p ON tp.idp = p.idp
+LEFT JOIN terrainuser tu ON t.idterrain = tu.idterrain
+join useruser u ON u.iduser=tu.iduser ;
+
+CREATE TABLE phototerrain (
+    idphoto serial PRIMARY KEY,
+    idterrain integer references terrain(idterrain),
+    photo varchar(100)
 );
 
 CREATE TABLE categorieculture (
@@ -63,9 +91,12 @@ INSERT INTO parcelleculture (daty, idp, idcatecult, rendement) VALUES
 ('2024-02-24 14:30:00', 2, 2, 500),
 ('2024-03-25 10:45:00', 3, 2, 400);
 
-
-CREATE TABLE terrainparcelle (
-    idtp serial PRIMARY KEY,
-    idterrain integer references terrain(idterrain),
-    idp integer references parcelle(idp)
-);
+SELECT
+    cc.nomcatecult AS categorie,
+    SUM(pc.rendement) AS totalRendement
+FROM
+    parcelleculture pc
+JOIN
+    categorieculture cc ON pc.idcatecult = cc.idcatecult
+GROUP BY
+    cc.nomcatecult;

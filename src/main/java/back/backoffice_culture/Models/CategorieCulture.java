@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 public class CategorieCulture {
@@ -129,4 +131,29 @@ public class CategorieCulture {
             throw e;
         }
     }
+
+    public static Map<String, Integer> getTotalRendementParCategorie(Connexion c) {
+        Map<String, Integer> result = new HashMap<>();
+        Connection cc = c.getConnection();
+
+        String query = "SELECT cc.nomcatecult AS categorie, SUM(pc.rendement) AS totalRendement " +
+                       "FROM parcelleculture pc " +
+                       "JOIN categorieculture cc ON pc.idcatecult = cc.idcatecult " +
+                       "GROUP BY cc.nomcatecult";
+
+        try (PreparedStatement pstmt = cc.prepareStatement(query)) {
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String categorie = rs.getString("categorie");
+                int totalRendement = rs.getInt("totalRendement");
+                result.put(categorie, totalRendement);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
 }

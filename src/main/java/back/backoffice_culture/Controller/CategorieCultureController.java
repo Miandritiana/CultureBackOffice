@@ -1,5 +1,7 @@
 package back.backoffice_culture.Controller;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,4 +61,16 @@ public class CategorieCultureController {
         cateCult.deleteCategorieCulture(id, c);
     }
 
+    @GetMapping("/statistiques")
+    public Map<String, Integer> getTotalRendementParCategorie() {
+        Connexion c = new Connexion();
+        CategorieCulture ccult = new CategorieCulture();
+
+        try {
+            return ccult.getTotalRendementParCategorie(c);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; 
+        }
+    }
 }

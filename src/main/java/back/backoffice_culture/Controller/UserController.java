@@ -9,7 +9,7 @@ import back.backoffice_culture.Models.Connexion;
 import back.backoffice_culture.Models.User;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/users")
 public class UserController {
 
     @GetMapping("/checkLogin")

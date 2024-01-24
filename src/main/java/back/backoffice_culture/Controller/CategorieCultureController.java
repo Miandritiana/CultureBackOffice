@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 import back.backoffice_culture.Models.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/categoriecultures")
 public class CategorieCultureController {
 
-    @PutMapping("/update")
+    @PutMapping("/")
     public void update(@RequestParam int id,@RequestParam String nom, @RequestParam double prix) throws Exception {
         Connexion c = new Connexion();
         CategorieCulture cateCult = new CategorieCulture();
         cateCult.updateCategorieCulture(id, nom, prix, c); 
     }
     
-    @DeleteMapping("/delete")
+    @DeleteMapping("/")
     public void delete(@RequestParam int id) throws Exception {
         Connexion c = new Connexion();
         CategorieCulture cateCult = new CategorieCulture();

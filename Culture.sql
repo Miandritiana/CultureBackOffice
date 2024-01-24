@@ -36,6 +36,11 @@ INSERT INTO parcelle (nomp, taille) VALUES
 ('Parcelle B', 700),
 ('Parcelle C', 1000);
 
+CREATE TABLE demandeparcelle (
+    iddp serial PRIMARY KEY,
+    nom varchar(100),
+    taille integer
+);
 
 CREATE TABLE categorieculture (
     idcatecult serial PRIMARY KEY,

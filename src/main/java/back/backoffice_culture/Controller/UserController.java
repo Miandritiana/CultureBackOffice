@@ -13,7 +13,7 @@ import back.backoffice_culture.Models.User;
 public class UserController {
 
     @GetMapping("/checkLogin")
-    public boolean checkLogin(@RequestParam("nom") String nom, @RequestParam("password") String password) throws Exception {
+    public boolean checkLogin(@RequestParam("username") String nom, @RequestParam("password") String password) throws Exception {
         Connexion c = new Connexion();
         User user = new User();
         

@@ -4,7 +4,7 @@ CREATE TABLE useruser (
     password varchar(100),
     idAdmin boolean default false
 );
-INSERT INTO useruser (nomuser, password, idAdmin) VALUES ('admin', '123', true);
+INSERT INTO useruser (nomuser, password, idAdmin) VALUES ('Admin', '123', true);
 
 
 CREATE TABLE terrain (
@@ -92,7 +92,7 @@ CREATE TABLE parcelleculture (
     rendement integer --kg/m2
 );
 INSERT INTO parcelleculture (daty, idp, idcatecult, rendement) VALUES
-('2024-01-23 12:00:00', 1, 3, 300),
+('2024-01-23 12:00:00', 1, 1, 300),
 ('2024-02-24 14:30:00', 2, 2, 500),
 ('2024-03-25 10:45:00', 3, 2, 400);
 

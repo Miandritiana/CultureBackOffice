@@ -9,7 +9,7 @@ public class Connexion
 		{
 			Class.forName("org.postgresql.Driver");
 
-			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Culture","postgres","root");
+			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/culture","postgres","root");
 
 			return conn;
 		}

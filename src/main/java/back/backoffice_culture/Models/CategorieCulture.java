@@ -62,7 +62,8 @@ public class CategorieCulture {
             System.out.println(cc);
             Statement stmt = cc.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM categorieculture"); 
-            Vector<CategorieCulture> v=new Vector<CategorieCulture>();
+                System.out.println("sdfghj"+rs);
+                Vector<CategorieCulture> v=new Vector<CategorieCulture>();
             while(rs.next())
             {
                 v.add(new CategorieCulture(rs.getInt(1),rs.getString(2),rs.getDouble(3)));

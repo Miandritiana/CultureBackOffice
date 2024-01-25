@@ -3,6 +3,7 @@ package back.backoffice_culture.Models;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
@@ -84,21 +85,33 @@ public class Terrain {
         }    
     }
 
-    public void insertTerrain(Terrain inserer, Connexion c) throws Exception {
-        try {
-            Connection cc = c.getConnection();
-            String query = "INSERT INTO Terrain(description,geolocalisation,status) VALUES (?,?,0)";
-            
-            try (PreparedStatement pstmt = cc.prepareStatement(query)) {
-                pstmt.setString(1, inserer.getDescription());
-                pstmt.setString(2, inserer.getGeolocalisation());
-                int rep = pstmt.executeUpdate();
-                System.out.println(rep);
-            } 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public int insertTerrain(Terrain inserer, Connexion c) throws Exception {
+    int generatedId = -1;  
+
+    try {
+        Connection cc = c.getConnection();
+        String query = "INSERT INTO Terrain(description,geolocalisation,status) VALUES (?,?,0)";
+        
+        try (PreparedStatement pstmt = cc.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, inserer.getDescription());
+            pstmt.setString(2, inserer.getGeolocalisation());
+            int rep = pstmt.executeUpdate();
+
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    generatedId = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("L'insertion du terrain n'a pas généré d'ID.");
+                }
+            }
+        } 
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+
+    return generatedId;
+}
+
 
     public void updateTerrainStatus(int idTerrain, Connexion c) {
         try {
@@ -114,20 +127,33 @@ public class Terrain {
         }
     }
 
-    public void validerTerrain(int idTerrain, int idParcelle, int idUser, Connexion c) {
+    public void demandeTerrain(String desc,String geolocalisation,int idUser,String photo,Connexion c) {
+        Terrain t=new Terrain(desc,geolocalisation,0);
         try {
-            updateTerrainStatus(idTerrain, c);
-            TerrainParcelle TerrainParcelle = new TerrainParcelle(idTerrain,idParcelle);
-            TerrainParcelle.insertTerrainParcelle(TerrainParcelle, c);
+            int idTerrain=insertTerrain(t,c);
 
-            
             TerrainUser TerrainUser = new TerrainUser(idTerrain,idUser);
             TerrainUser.insertTerrainUser(TerrainUser, c);
+
+            PhotoTerrain PhotoTerrain = new PhotoTerrain(idTerrain,photo);
+            PhotoTerrain.insertPhotoTerrain(PhotoTerrain, c);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+    }
+
+    public void validerTerrain(int idTerrain,Connexion c) {
+        try {
+            updateTerrainStatus(idTerrain, c);
+            // TerrainParcelle TerrainParcelle = new TerrainParcelle(idTerrain,idParcelle);
+            // TerrainParcelle.insertTerrainParcelle(TerrainParcelle, c);
+            
+            // TerrainUser TerrainUser = new TerrainUser(idTerrain,idUser);
+            // TerrainUser.insertTerrainUser(TerrainUser, c);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
         
 }

@@ -11,7 +11,7 @@ CREATE TABLE terrain (
     idterrain serial PRIMARY KEY,
     description  varchar(100),
     geolocalisation  varchar(100),
-    status int
+    status int --0 en attente ,1 validé
 );
 INSERT INTO terrain (description, geolocalisation, status) VALUES
 ('Terrain 1', 'Latitude: X, Longitude: Y', 1),
@@ -46,6 +46,8 @@ CREATE TABLE terrainuser (
 INSERT INTO terrainuser (idterrain, iduser) VALUES
 (1, 2);
 
+--------View ListeTerrain 
+
 CREATE VIEW viewDetailsTerrain AS
 SELECT
     t.idterrain,
@@ -55,14 +57,17 @@ SELECT
     p.idp,
     p.nomp,
     p.taille,
-	tu.iduser,
-    u.nomuser  
+    tu.iduser,
+    u.nomuser,
+    pt.photo  -- Ajout de la colonne photo
 FROM
     terrain t
 JOIN terrainparcelle tp ON t.idterrain = tp.idterrain
 JOIN parcelle p ON tp.idp = p.idp
 LEFT JOIN terrainuser tu ON t.idterrain = tu.idterrain
-join useruser u ON u.iduser=tu.iduser ;
+JOIN useruser u ON u.iduser = tu.iduser
+LEFT JOIN phototerrain pt ON t.idterrain = pt.idterrain;  -- Ajout de la jointure avec la table phototerrain
+
 
 CREATE TABLE phototerrain (
     idphoto serial PRIMARY KEY,
@@ -91,6 +96,7 @@ INSERT INTO parcelleculture (daty, idp, idcatecult, rendement) VALUES
 ('2024-02-24 14:30:00', 2, 2, 500),
 ('2024-03-25 10:45:00', 3, 2, 400);
 
+--------Statistique
 SELECT
     cc.nomcatecult AS categorie,
     SUM(pc.rendement) AS totalRendement
@@ -100,3 +106,30 @@ JOIN
     categorieculture cc ON pc.idcatecult = cc.idcatecult
 GROUP BY
     cc.nomcatecult;
+
+--------View ListeCulture 
+CREATE VIEW viewListeCulture AS
+SELECT
+    t.idterrain,
+    tp.idp AS idparcelle,
+    tu.iduser,
+    cc.idcatecult,
+    cc.nomcatecult AS nomculture,
+    t.description AS nomterrain,
+    p.nomp,
+    u.nomuser
+FROM
+    terrain t
+JOIN
+    terrainparcelle tp ON t.idterrain = tp.idterrain
+JOIN
+    parcelle p ON tp.idp = p.idp
+JOIN
+    terrainuser tu ON t.idterrain = tu.idterrain
+JOIN
+    useruser u ON tu.iduser = u.iduser
+JOIN
+    parcelleculture pc ON tp.idp = pc.idp
+JOIN
+    categorieculture cc ON pc.idcatecult = cc.idcatecult;
+    

@@ -1,6 +1,7 @@
 package back.backoffice_culture.Controller;
 
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,5 +47,20 @@ public class ParcelleController {
         }
     }
 
+    @PostMapping("/insertParcelleCulture")
+    public ResponseEntity<String> insertParcelleCulture(@RequestParam String nomParcelle,@RequestParam int taille,@RequestParam Timestamp daty,@RequestParam int idCateCult,@RequestParam int rendement,@RequestParam int idTerrain) {
+        Connexion c = new Connexion();
+
+        try {
+            Parcelle parcelle = new Parcelle();
+            parcelle.insertParcelleCulture(nomParcelle, taille, daty, idCateCult, rendement,idTerrain,c);
+
+            return ResponseEntity.ok("Parcelle insérée avec succès");
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return ResponseEntity.status(500).body("Erreur lors de l'insertion de la parcelle : " + e.getMessage());
+        }
+    }
 }
 

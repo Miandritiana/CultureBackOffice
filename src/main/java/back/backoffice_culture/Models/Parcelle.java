@@ -1,5 +1,6 @@
 package back.backoffice_culture.Models;
 
+import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,19 +66,51 @@ public class Parcelle {
         }    
     }
 
-    public void insertParcelle(Parcelle inserer, Connexion c) throws Exception {
+    public int insertParcelle(Parcelle inserer, Connexion c) throws Exception {
+        int idParcelle = -1;  
         try {
             Connection cc = c.getConnection();
-            String query = "INSERT INTO Parcelle(nomp,taille) VALUES (?,?)";
-            
-            try (PreparedStatement pstmt = cc.prepareStatement(query)) {
+            String query = "INSERT INTO Parcelle(nomp, taille) VALUES (?,?)";
+
+            try (PreparedStatement pstmt = cc.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
                 pstmt.setString(1, inserer.getNomParcelle());
                 pstmt.setInt(2, inserer.getTaille());
                 int rep = pstmt.executeUpdate();
-                System.out.println(rep);
-            } 
+
+                if (rep > 0) {
+                    ResultSet generatedKeys = pstmt.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        idParcelle = generatedKeys.getInt(1);
+                    } else {
+                        throw new Exception("Échec de la récupération de l'ID de la parcelle après insertion.");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return idParcelle;
+    }
+
+    public void insertParcelleCulture(String nomP,int taille,Timestamp daty,int idCateCult,int rendement,int idTerrain,Connexion c)
+    {
+        try {
+            Parcelle Parcelle = new Parcelle(nomP,taille);
+            int idParcelle=Parcelle.insertParcelle(Parcelle, c);
+
+            ParcelleCulture ParcelleCulture = new ParcelleCulture(daty,idParcelle,idCateCult,rendement);
+            ParcelleCulture.insertPC(ParcelleCulture,c);
+
+            TerrainParcelle TerrainParcelle = new TerrainParcelle(idTerrain,idParcelle);
+            TerrainParcelle.insertTerrainParcelle(TerrainParcelle,c);
+
+            // TerrainUser TerrainUser = new TerrainUser(idTerrain,idUser);
+            // TerrainUser.insertTerrainUser(TerrainUser,c);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }

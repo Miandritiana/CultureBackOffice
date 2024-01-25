@@ -20,8 +20,9 @@ public class ViewDetailsTerrain {
     private int tailleParcelle;
     private int idUser;
     private String nomUser;
+    private String photo;
 
-    public ViewDetailsTerrain(int idTerrain, String description, String geolocalisation, int status, int idParcelle, String nomParcelle, int tailleParcelle, int idUser, String nomUser) {
+    public ViewDetailsTerrain(int idTerrain, String description, String geolocalisation, int status, int idParcelle, String nomParcelle, int tailleParcelle, int idUser, String nomUser,String photo) {
         this.idTerrain = idTerrain;
         this.description = description;
         this.geolocalisation = geolocalisation;
@@ -31,6 +32,7 @@ public class ViewDetailsTerrain {
         this.tailleParcelle = tailleParcelle;
         this.idUser = idUser;
         this.nomUser = nomUser;
+        this.photo = photo;
     }
 
     public int getIdTerrain() {
@@ -121,7 +123,14 @@ public class ViewDetailsTerrain {
     public void setNomUser(String nomUser) {
         this.nomUser = nomUser;
     }
-        
+    public String getPhoto() {
+        return photo;
+    }
+
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }    
     public static ViewDetailsTerrain[] selectTerrainDetailsWithStatus(Connexion c, int status) {
         try {
             Connection cc = c.getConnection();
@@ -142,7 +151,8 @@ public class ViewDetailsTerrain {
                             rs.getString("nomp"),
                             rs.getInt("taille"),
                             rs.getInt("iduser"),
-                            rs.getString("nomuser")
+                            rs.getString("nomuser"),
+                            rs.getString("photo")
                     ));
                 }
 
@@ -156,6 +166,39 @@ public class ViewDetailsTerrain {
         }
     }
 
+    public static ViewDetailsTerrain[] selectTerrainDetailsById(Connexion c, int idUser) {
+        try {
+            Connection cc = c.getConnection();
+            String query = "SELECT * FROM viewDetailsTerrain WHERE iduser = ?";
 
+            try (PreparedStatement pstmt = cc.prepareStatement(query)) {
+                pstmt.setInt(1, idUser);
+                ResultSet rs = pstmt.executeQuery();
+
+                Vector<ViewDetailsTerrain> v = new Vector<>();
+                while (rs.next()) {
+                    v.add(new ViewDetailsTerrain(
+                            rs.getInt("idterrain"),
+                            rs.getString("description"),
+                            rs.getString("geolocalisation"),
+                            rs.getInt("status"),
+                            rs.getInt("idp"),
+                            rs.getString("nomp"),
+                            rs.getInt("taille"),
+                            rs.getInt("iduser"),
+                            rs.getString("nomuser"),
+                            rs.getString("photo")
+                    ));
+                }
+
+                ViewDetailsTerrain[] resultArray = new ViewDetailsTerrain[v.size()];
+                v.copyInto(resultArray);
+                return resultArray;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     
 }

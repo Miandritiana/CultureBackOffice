@@ -71,4 +71,22 @@ public class PhotoTerrain {
             e.printStackTrace();
         }
     }
+
+    public void updatePhotoTerrain(String photo,int idTerrain, Connexion c) throws Exception {
+        try {
+            Connection cc = c.getConnection();
+            
+            String queryPhotoTerrain = "UPDATE phototerrain SET photo=? WHERE idterrain=?";
+            try (PreparedStatement pstmtPhotoTerrain = cc.prepareStatement(queryPhotoTerrain)) {
+                pstmtPhotoTerrain.setString(1, photo);
+                pstmtPhotoTerrain.setInt(2, idTerrain);
+                
+                int repPhotoTerrain = pstmtPhotoTerrain.executeUpdate();
+                System.out.println("Nombre de lignes mises à jour dans la table phototerrain : " + repPhotoTerrain);
+            } 
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }

@@ -86,31 +86,31 @@ public class Terrain {
     }
 
     public int insertTerrain(Terrain inserer, Connexion c) throws Exception {
-    int generatedId = -1;  
+        int generatedId = -1;  
 
-    try {
-        Connection cc = c.getConnection();
-        String query = "INSERT INTO Terrain(description,geolocalisation,status) VALUES (?,?,0)";
-        
-        try (PreparedStatement pstmt = cc.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, inserer.getDescription());
-            pstmt.setString(2, inserer.getGeolocalisation());
-            int rep = pstmt.executeUpdate();
+        try {
+            Connection cc = c.getConnection();
+            String query = "INSERT INTO Terrain(description,geolocalisation,status) VALUES (?,?,0)";
+            
+            try (PreparedStatement pstmt = cc.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                pstmt.setString(1, inserer.getDescription());
+                pstmt.setString(2, inserer.getGeolocalisation());
+                int rep = pstmt.executeUpdate();
 
-            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    generatedId = generatedKeys.getInt(1);
-                } else {
-                    throw new SQLException("L'insertion du terrain n'a pas généré d'ID.");
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        generatedId = generatedKeys.getInt(1);
+                    } else {
+                        throw new SQLException("L'insertion du terrain n'a pas généré d'ID.");
+                    }
                 }
-            }
-        } 
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+            } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-    return generatedId;
-}
+        return generatedId;
+    }
 
 
     public void updateTerrainStatus(int idTerrain, Connexion c) {
@@ -155,5 +155,24 @@ public class Terrain {
             e.printStackTrace();
         }
     }
-        
+    
+    public void updateTerrain(int idTerrain, String desc, Connexion c) throws Exception {
+        try {
+            Connection cc = c.getConnection();
+            
+            String queryTerrain = "UPDATE Terrain SET description=? WHERE idterrain=?";
+            try (PreparedStatement pstmtTerrain = cc.prepareStatement(queryTerrain)) {
+                pstmtTerrain.setString(1, desc);
+                pstmtTerrain.setInt(2, idTerrain);
+                
+                int repTerrain = pstmtTerrain.executeUpdate();
+                System.out.println("Nombre de lignes mises à jour dans la table Terrain : " + repTerrain);
+            } 
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    
 }

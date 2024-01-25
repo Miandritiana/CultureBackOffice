@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -109,4 +110,31 @@ public class TerrainController {
             return ResponseEntity.status(500).body("Une erreur s'est produite lors de la validation du terrain.");
         }
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<String> updateTerrain(
+            @RequestParam int idTerrain,
+            @RequestParam String desc,
+            @RequestPart("photoFile") MultipartFile photoFile) {
+        try {
+            Connexion c = new Connexion();
+            Terrain terrain = new Terrain();
+            terrain.updateTerrain(idTerrain, desc, c);
+    
+            String photoFileName = idTerrain + "_" + photoFile.getOriginalFilename();
+            String uploadPath = "uploads/";
+    
+            Files.write(Paths.get(uploadPath + photoFileName), photoFile.getBytes());
+    
+            PhotoTerrain photoTerrain = new PhotoTerrain();
+            photoTerrain.updatePhotoTerrain(photoFileName, idTerrain, c);
+    
+            return ResponseEntity.ok("Terrain mis à jour avec succès");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Erreur lors de la mise à jour du terrain : " + e.getMessage());
+        }
+    }
+    
+
 }

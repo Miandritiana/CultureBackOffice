@@ -125,46 +125,4 @@ public class ViewListeCulture {
             return null;
         }
     }
-    public ArrayList<ViewListeCulture> getListeCultureDynamique (Connexion c,int idCulture) throws Exception {
-        ArrayList<ViewListeCulture> instruments = new ArrayList<>();
-
-        try (Connection co = c.getConnection()) {
-            StringBuilder sql = new StringBuilder("SELECT * from ViewListeCulture");
-
-            if (idCulture != 0) {
-                sql.append(" WHERE idCulture >= ?");
-            }
-
-            System.out.println(sql);
-
-            try (PreparedStatement statement = co.prepareStatement(sql.toString())) {
-                int parameterIndex = 1;
-
-                if (idCulture != 0) {
-                    statement.setInt(parameterIndex++, idCulture);
-                }
-
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    // Parcourir les résultats de la requête
-                    while (resultSet.next()) {
-                        ViewListeCulture culture = new ViewListeCulture();
-                        culture.setIdTerrain(resultSet.getInt("idterrain"));
-                        culture.setIdParcelle(resultSet.getInt("idparcelle"));
-                        culture.setIdUser(resultSet.getInt("iduser"));
-                        culture.setIdCategorieCulture(resultSet.getInt("idcatecult"));
-                        culture.setNomCulture(resultSet.getString("nomculture"));
-                        culture.setNomTerrain(resultSet.getString("nomterrain"));
-                        culture.setNomParcelle(resultSet.getString("nomp"));
-                        culture.setNomUser(resultSet.getString("nomuser"));
-
-                        instruments.add(culture);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return instruments;
-    }
 }

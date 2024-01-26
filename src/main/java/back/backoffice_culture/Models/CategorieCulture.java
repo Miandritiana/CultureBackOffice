@@ -135,17 +135,19 @@ public class CategorieCulture {
         Map<String, Integer> result = new HashMap<>();
         Connection cc = c.getConnection();
 
-        String query = "SELECT cc.nomcatecult AS categorie, SUM(pc.rendement) AS totalRendement " +
-                       "FROM parcelleculture pc " +
-                       "JOIN categorieculture cc ON pc.idcatecult = cc.idcatecult " +
-                       "GROUP BY cc.nomcatecult";
+        String query = "select cc.nomcatecult as categorie,\n" +
+                        "SUM(recolte.recolte) as TotalRecolte\n" +
+                        "from recolte\n" +
+                        "join parcelleculture pc on recolte.idParcelle = pc.idp\n" +
+                        "join categorieculture cc on pc.idcatecult = cc.idcatecult\n" +
+                        "GROUP BY cc.idcatecult ";
 
         try (PreparedStatement pstmt = cc.prepareStatement(query)) {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 String categorie = rs.getString("categorie");
-                int totalRendement = rs.getInt("totalRendement");
+                int totalRendement = rs.getInt("TotalRecolte");
                 result.put(categorie, totalRendement);
             }
         } catch (Exception e) {

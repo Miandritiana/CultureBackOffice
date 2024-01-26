@@ -101,17 +101,6 @@ INSERT INTO parcelleculture (daty, idp, idcatecult, rendement) VALUES
 ('2024-02-24 14:30:00', 2, 2, 500),
 ('2024-03-25 10:45:00', 3, 2, 400);
 
---------Statistique
-SELECT
-    cc.nomcatecult AS categorie,
-    SUM(pc.rendement) AS totalRendement
-FROM
-    parcelleculture pc
-JOIN
-    categorieculture cc ON pc.idcatecult = cc.idcatecult
-GROUP BY
-    cc.nomcatecult;
-
 --------View ListeCulture 
 CREATE VIEW viewListeCulture AS
 SELECT
@@ -197,3 +186,23 @@ CREATE TABLE recolte (
     idTerrain integer,
     recolte integer
 );
+
+--------Statistique
+SELECT
+    cc.nomcatecult AS categorie,
+    SUM(pc.rendement) AS totalRendement
+FROM
+    parcelleculture pc
+JOIN
+    categorieculture cc ON pc.idcatecult = cc.idcatecult
+GROUP BY
+    cc.nomcatecult;
+
+///V2
+
+select cc.nomcatecult as categorie,
+        SUM(recolte.recolte) as TotalRecolte
+from recolte
+join parcelleculture pc on recolte.idParcelle = pc.idp
+join categorieculture cc on pc.idcatecult = cc.idcatecult
+GROUP BY cc.idcatecult 

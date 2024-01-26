@@ -180,7 +180,7 @@ INSERT INTO saison (nomSaison) VALUES
 ('Printemps'),
 ('Ete'),
 ('Automne'),
-('Hiver'),
+('Hiver');
 
 
 CREATE TABLE saisonCulture (

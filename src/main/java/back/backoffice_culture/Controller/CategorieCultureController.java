@@ -73,4 +73,17 @@ public class CategorieCultureController {
             return null; 
         }
     }
+
+    @GetMapping("/filtreMultiCritere")
+    public ViewListeCulture[] getAllCategorieCultures(@RequestParam Integer idculture, @RequestParam String nom) {
+        Connexion c = new Connexion();
+        ViewListeCulture ccult = new ViewListeCulture();
+
+        try {
+            return ccult.selectViewListeCulture(c, idculture, nom);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ViewListeCulture[0];
+        }
+    }
 }

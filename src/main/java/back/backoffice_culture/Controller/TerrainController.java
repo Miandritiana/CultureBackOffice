@@ -20,6 +20,7 @@ import back.backoffice_culture.Models.Terrain;
 import back.backoffice_culture.Models.TerrainUser;
 import back.backoffice_culture.Models.User;
 import back.backoffice_culture.Models.ViewDetailsTerrain;
+import back.backoffice_culture.Models.ViewTerrainAValider;
 
 
 @RestController
@@ -136,5 +137,22 @@ public class TerrainController {
         }
     }
     
+    @GetMapping("/avalider")
+    public ViewTerrainAValider[] getTerrainAValider() {
+        Connexion c = new Connexion();
 
+        try {
+            ViewTerrainAValider[] terrainDetails = ViewTerrainAValider.selectTerrainAValider(c);
+
+            if (terrainDetails != null) {
+                return terrainDetails;
+            } else {
+                throw new RuntimeException("Erreur lors de la récupération des détails du terrain.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erreur lors de la récupération des détails du terrain : " + e.getMessage());
+        }
+    }
 }

@@ -145,22 +145,12 @@ SELECT
     t.description,
     t.geolocalisation,
     t.status, 
-    COUNT(p.idp) AS nombre_parcelles, 
     tu.iduser,
     u.nomuser,
     pt.photo  
 FROM
     terrain t
-JOIN terrainparcelle tp ON t.idterrain = tp.idterrain
-JOIN parcelle p ON tp.idp = p.idp
 LEFT JOIN terrainuser tu ON t.idterrain = tu.idterrain
 JOIN useruser u ON u.iduser = tu.iduser
 LEFT JOIN phototerrain pt ON t.idterrain = pt.idterrain
-GROUP BY
-    t.idterrain,  
-    t.description,
-    t.geolocalisation,
-    t.status,
-    tu.iduser,
-    u.nomuser,
-    pt.photo;  
+WHERE t.status=0;

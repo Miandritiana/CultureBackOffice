@@ -172,9 +172,28 @@ CREATE TABLE discussion (
 
 
 CREATE TABLE saison (
-    idDiscu serial PRIMARY KEY,
-    daty timestamp, 
-    idUserSend integer references useruser(iduser),
-    idUserReceive integer references useruser(iduser),
-    message varchar(250)
+    idSaison serial PRIMARY KEY,
+    nomSaison varchar(100) 
+);
+
+INSERT INTO saison (nomSaison) VALUES
+('Printemps'),
+('Ete'),
+('Automne'),
+('Hiver'),
+
+
+CREATE TABLE saisonCulture (
+    idSaisonCulture serial PRIMARY KEY,
+    idSaison integer,
+    idcatecult integer,
+    effet integer
+);
+
+CREATE TABLE recolte (
+    idRecolte serial PRIMARY KEY,
+    dateRecolte date,
+    idParcelle integer,
+    idTerrain integer,
+    recolte integer
 );

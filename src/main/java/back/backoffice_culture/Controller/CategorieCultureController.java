@@ -48,7 +48,7 @@ public class CategorieCultureController {
     }
 
     @PutMapping("/update")
-    public void update(@RequestParam int id,@RequestParam String nom, @RequestParam double prix) throws Exception {
+    public void update(@RequestParam int id,@RequestParam String nom, @RequestParam int rendement) throws Exception {
         Connexion c = new Connexion();
         CategorieCulture cateCult = new CategorieCulture();
         cateCult.updateCategorieCulture(id, nom, c);

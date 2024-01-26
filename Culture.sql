@@ -133,7 +133,7 @@ JOIN
 JOIN
     categorieculture cc ON pc.idcatecult = cc.idcatecult;
 
-
+--------View Terrain A valider
 CREATE VIEW viewTerrainAValider AS
 SELECT
     t.idterrain,

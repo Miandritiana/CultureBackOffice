@@ -81,7 +81,7 @@ public class CategorieCulture {
     public void insertCategorieCulture(CategorieCulture inserer, Connexion c) throws Exception {
         try {
             Connection cc = c.getConnection();
-            String query = "INSERT INTO CategorieCulture(nomcatecult,prix) VALUES (?,?)";
+            String query = "INSERT INTO CategorieCulture(nomcatecult,rendement) VALUES (?,?)";
             
             try (PreparedStatement pstmt = cc.prepareStatement(query)) {
                 pstmt.setString(1, inserer.getNomCateCult());
@@ -94,25 +94,24 @@ public class CategorieCulture {
         }
     }
 
-    public void updateCategorieCulture(int idCateCult, String nouveauNom, Connexion c) throws Exception {
+    public void updateCategorieCulture(int idCateCult, String nouveauNom, int rendement, Connexion c) throws Exception {
         try {
             Connection cc = c.getConnection();
-            String query = "UPDATE CategorieCulture SET nomcatecult=? WHERE idcatecult=?";
-            System.out.println("query"+query);
+            String query = "UPDATE CategorieCulture SET nomcatecult=?, rendement=? WHERE idcatecult=?";
+            System.out.println("query" + query);
             try (PreparedStatement pstmt = cc.prepareStatement(query)) {
                 pstmt.setString(1, nouveauNom);
-                pstmt.setInt(2, idCateCult);
-                
+                pstmt.setInt(2, rendement);
+                pstmt.setInt(3, idCateCult);
+    
                 int rep = pstmt.executeUpdate();
                 System.out.println(rep);
-            } 
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
-    }
-    
-    
+    }    
 
     public void deleteCategorieCulture(int id, Connexion c) throws Exception {
         try {

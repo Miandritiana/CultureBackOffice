@@ -25,9 +25,9 @@ CREATE TABLE parcelle (
     taille integer --en m2
 );
 INSERT INTO parcelle (nomp, taille) VALUES
-('Parcelle A', 500),
-('Parcelle B', 700),
-('Parcelle C', 1000);
+('Parcelle A', 50),
+('Parcelle B', 70),
+('Parcelle C', 80);
 
 
 CREATE TABLE terrainparcelle (
@@ -86,8 +86,8 @@ CREATE TABLE categorieculture (
     nomcatecult varchar(100),
     rendement integer --kg/m2
 );
-INSERT INTO categorieculture (nomcatecult, prix) VALUES ('Katsaka', 20000);
-INSERT INTO categorieculture (nomcatecult, prix) VALUES ('Vary', 15000);
+INSERT INTO categorieculture (nomcatecult, rendement) VALUES ('Katsaka', 10);
+INSERT INTO categorieculture (nomcatecult, rendement) VALUES ('Vary', 15);
 
 
 CREATE TABLE parcelleculture (
@@ -96,10 +96,10 @@ CREATE TABLE parcelleculture (
     idp integer references parcelle(idp),
     idcatecult integer references categorieculture(idcatecult),
 );
-INSERT INTO parcelleculture (daty, idp, idcatecult, rendement) VALUES
-('2024-01-23 12:00:00', 1, 1, 300),
-('2024-02-24 14:30:00', 2, 2, 500),
-('2024-03-25 10:45:00', 3, 2, 400);
+INSERT INTO parcelleculture (daty, idp, idcatecult) VALUES
+('2024-01-23 12:00:00', 1, 1),
+('2024-02-24 14:30:00', 2, 2),
+('2024-03-25 10:45:00', 3, 2);
 
 --------View ListeCulture 
 CREATE VIEW viewListeCulture AS

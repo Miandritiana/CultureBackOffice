@@ -51,7 +51,7 @@ public class CategorieCultureController {
     public void update(@RequestParam int id,@RequestParam String nom, @RequestParam int rendement) throws Exception {
         Connexion c = new Connexion();
         CategorieCulture cateCult = new CategorieCulture();
-        cateCult.updateCategorieCulture(id, nom, c);
+        cateCult.updateCategorieCulture(id, nom,rendement, c);
     }
     
     @DeleteMapping("/delete")

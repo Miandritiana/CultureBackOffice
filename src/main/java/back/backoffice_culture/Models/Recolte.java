@@ -95,4 +95,27 @@ public class Recolte {
             throw e;
         }
     }
+
+    public void insertRecolte(Connexion connexion) throws Exception {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = connexion.getConnection();
+            String query = "INSERT INTO recolte (dateRecolte, idParcelle, idTerrain, recolte) VALUES (?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setDate(1, new java.sql.Date(this.dateRecolte.getTime()));
+            preparedStatement.setInt(2, this.idParcelle);
+            preparedStatement.setInt(3, this.idTerrain);
+            preparedStatement.setInt(4, this.recolte);
+            preparedStatement.executeUpdate();
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
 }

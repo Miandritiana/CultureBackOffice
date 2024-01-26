@@ -110,4 +110,23 @@ public class SaisonCulture {
             }
         }
     }
+
+    public void updateSaisonCulture(int idSaisonCulture, int IdCateCult, int nouvelEffet, Connexion c) throws Exception {
+        try {
+            Connection cc = c.getConnection();
+            String query = "UPDATE saisonCulture SET effet=? WHERE idSaisonCulture=? and  idcatecult=?";
+            System.out.println("query " + query);
+            try (PreparedStatement pstmt = cc.prepareStatement(query)) {
+                pstmt.setInt(1, nouvelEffet);
+                pstmt.setInt(2, IdCateCult);
+                pstmt.setInt(3, idSaisonCulture);
+
+                int rep = pstmt.executeUpdate();
+                System.out.println(rep);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }

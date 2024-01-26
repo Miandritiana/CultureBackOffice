@@ -87,6 +87,7 @@ CREATE TABLE categorieculture (
 );
 INSERT INTO categorieculture (nomcatecult, prix) VALUES ('Katsaka', 20000);
 INSERT INTO categorieculture (nomcatecult, prix) VALUES ('Vary', 15000);
+INSERT INTO categorieculture (nomcatecult, prix) VALUES ('Ovy', 15000);
 
 
 CREATE TABLE parcelleculture (
@@ -100,6 +101,13 @@ INSERT INTO parcelleculture (daty, idp, idcatecult, rendement) VALUES
 ('2024-01-23 12:00:00', 1, 1, 300),
 ('2024-02-24 14:30:00', 2, 2, 500),
 ('2024-03-25 10:45:00', 3, 2, 400);
+INSERT INTO parcelleculture (daty, idp, idcatecult, rendement) VALUES
+('2024-01-23 12:00:00', 1, 1, 300),
+('2024-02-24 14:30:00', 2, 2, 700);
+
+INSERT INTO parcelleculture (daty, idp, idcatecult, rendement) VALUES
+('2024-01-23 12:00:00', 1, 3, 300),
+('2024-02-24 14:30:00', 2, 3, 200);
 
 --------Statistique
 SELECT

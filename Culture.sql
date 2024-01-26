@@ -163,3 +163,9 @@ CREATE TABLE discussion (
     idUserReceive integer references useruser(iduser),
     message varchar(250)
 );
+
+1 - 2
+2 - 1
+
+1 - 3
+3 - 1

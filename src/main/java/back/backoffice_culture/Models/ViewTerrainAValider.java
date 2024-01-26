@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ViewTerrainAValider {
 
-    public ViewTerrainAValider(int idTerrain, String description, String geolocalisation, int status,
-            int nombreParcelle, int idUser, String nomUser, String photo) {
+    public ViewTerrainAValider(int idTerrain, String description, String geolocalisation, int status, int idUser, String nomUser, String photo) {
         this.idTerrain = idTerrain;
         this.description = description;
         this.geolocalisation = geolocalisation;
         this.status = status;
-        this.nombreParcelle = nombreParcelle;
         this.idUser = idUser;
         this.nomUser = nomUser;
         this.photo = photo;
@@ -28,7 +26,6 @@ public class ViewTerrainAValider {
     private String description;
     private String geolocalisation;
     private int status;
-    private int nombreParcelle;
     private int idUser;
     private String nomUser;
     private String photo;
@@ -65,14 +62,6 @@ public class ViewTerrainAValider {
         this.status = status;
     }
 
-    public int getNombreParcelle() {
-        return nombreParcelle;
-    }
-
-    public void setNombreParcelle(int nombreParcelle) {
-        this.nombreParcelle = nombreParcelle;
-    }
-
     public int getIdUser() {
         return idUser;
     }
@@ -100,7 +89,7 @@ public class ViewTerrainAValider {
     public static ViewTerrainAValider[] selectTerrainAValider(Connexion c) {
         try {
             Connection cc = c.getConnection();
-            String query = "SELECT * FROM viewTerrainAValider WHERE status = 0";
+            String query = "SELECT * FROM viewTerrainAValider";
 
             try (PreparedStatement pstmt = cc.prepareStatement(query)) {
                 ResultSet rs = pstmt.executeQuery();
@@ -112,7 +101,6 @@ public class ViewTerrainAValider {
                             rs.getString("description"),
                             rs.getString("geolocalisation"),
                             rs.getInt("status"),
-                            rs.getInt("nombre_parcelles"),
                             rs.getInt("iduser"),
                             rs.getString("nomuser"),
                             rs.getString("photo")

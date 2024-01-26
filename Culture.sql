@@ -162,3 +162,12 @@ LEFT JOIN terrainuser tu ON t.idterrain = tu.idterrain
 JOIN useruser u ON u.iduser = tu.iduser
 LEFT JOIN phototerrain pt ON t.idterrain = pt.idterrain
 WHERE t.status=0;
+
+
+CREATE TABLE discussion (
+    idDiscu serial PRIMARY KEY,
+    daty timestamp, 
+    idUserSend integer references useruser(iduser),
+    idUserReceive integer references useruser(iduser),
+    message varchar(250)
+);

@@ -117,4 +117,23 @@ public class User {
     
         return false;
     }
+
+    public String getNomUserById(int idUser, Connexion c) throws Exception {
+        String nomUtilisateur = null;
+        try (Connection cc = c.getConnection();
+             Statement statement = cc.createStatement()) {
+
+            String requete = "SELECT nomuser FROM useruser WHERE iduser = " + idUser;
+            ResultSet resultat = statement.executeQuery(requete);
+
+            if (resultat.next()) {
+                nomUtilisateur = resultat.getString("nomuser");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Erreur lors de la récupération du nom de l'utilisateur");
+        }
+
+        return nomUtilisateur;
+    }
 }

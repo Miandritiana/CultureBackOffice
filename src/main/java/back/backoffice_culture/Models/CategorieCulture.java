@@ -11,19 +11,19 @@ import java.util.Vector;
 public class CategorieCulture {
     int idCategorieCulture;
     String nomCateCult;
-    double prix;
+    int rendement;
 
    
 
-    public CategorieCulture(String nomCateCult, double prix) {
+    public CategorieCulture(String nomCateCult, int rendement) {
         this.nomCateCult = nomCateCult;
-        this.prix = prix;
+        this.rendement = rendement;
     }
 
-    public CategorieCulture(int idCategorieCulture, String nomCateCult, double prix) {
+    public CategorieCulture(int idCategorieCulture, String nomCateCult, int rendement) {
         this.idCategorieCulture = idCategorieCulture;
         this.nomCateCult = nomCateCult;
-        this.prix = prix;
+        this.rendement = rendement;
     }
 
     public CategorieCulture() {
@@ -45,12 +45,12 @@ public class CategorieCulture {
         this.nomCateCult = nomCateCult;
     }
 
-    public double getprix() {
-        return prix;
+    public int getRendement() {
+        return rendement;
     }
 
-    public void setprix(double prix) {
-        this.prix = prix;
+    public void setRendement(int rendement) {
+        this.rendement = rendement;
     }
 
 
@@ -65,7 +65,7 @@ public class CategorieCulture {
                 Vector<CategorieCulture> v=new Vector<CategorieCulture>();
             while(rs.next())
             {
-                v.add(new CategorieCulture(rs.getInt(1),rs.getString(2),rs.getDouble(3)));
+                v.add(new CategorieCulture(rs.getInt(1),rs.getString(2),rs.getInt(3)));
             }
             CategorieCulture[] lCategorieCulture=new CategorieCulture[v.size()];
             v.copyInto(lCategorieCulture);
@@ -85,7 +85,7 @@ public class CategorieCulture {
             
             try (PreparedStatement pstmt = cc.prepareStatement(query)) {
                 pstmt.setString(1, inserer.getNomCateCult());
-                pstmt.setDouble(2, inserer.getprix());
+                pstmt.setInt(2, inserer.getRendement());
                 int rep = pstmt.executeUpdate();
                 System.out.println(rep);
             } 
@@ -94,15 +94,14 @@ public class CategorieCulture {
         }
     }
 
-    public void updateCategorieCulture(int idCateCult, String nouveauNom, double nouveauPrix, Connexion c) throws Exception {
+    public void updateCategorieCulture(int idCateCult, String nouveauNom, Connexion c) throws Exception {
         try {
             Connection cc = c.getConnection();
-            String query = "UPDATE CategorieCulture SET nomcatecult=?, prix=? WHERE idcatecult=?";
+            String query = "UPDATE CategorieCulture SET nomcatecult=? WHERE idcatecult=?";
             System.out.println("query"+query);
             try (PreparedStatement pstmt = cc.prepareStatement(query)) {
                 pstmt.setString(1, nouveauNom);
-                pstmt.setDouble(2, nouveauPrix);
-                pstmt.setInt(3, idCateCult);
+                pstmt.setInt(2, idCateCult);
                 
                 int rep = pstmt.executeUpdate();
                 System.out.println(rep);

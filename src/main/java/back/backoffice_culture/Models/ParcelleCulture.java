@@ -13,21 +13,18 @@ public class ParcelleCulture {
     Timestamp daty;
     int idParcelle;
     int idCateCult;
-    int rendement;
 
-    public ParcelleCulture(Timestamp daty, int idParcelle, int idCateCult, int rendement) {
+    public ParcelleCulture(Timestamp daty, int idParcelle, int idCateCult) {
         this.daty = daty;
         this.idParcelle = idParcelle;
         this.idCateCult = idCateCult;
-        this.rendement = rendement;
     }
 
-    public ParcelleCulture(int idParcelleCulture, Timestamp daty, int idParcelle, int idCateCult, int rendement) {
+    public ParcelleCulture(int idParcelleCulture, Timestamp daty, int idParcelle, int idCateCult) {
         this.idParcelleCulture = idParcelleCulture;
         this.daty = daty;
         this.idParcelle = idParcelle;
         this.idCateCult = idCateCult;
-        this.rendement = rendement;
     }
 
     public ParcelleCulture() {
@@ -65,14 +62,6 @@ public class ParcelleCulture {
         this.idCateCult = idCateCult;
     }
 
-    public int getRendement() {
-        return rendement;
-    }
-
-    public void setRendement(int rendement) {
-        this.rendement = rendement;
-    }
-
     public ParcelleCulture[] selectParcelleCulture(Connexion c) throws Exception
     {
         try {
@@ -84,7 +73,7 @@ public class ParcelleCulture {
             Vector<ParcelleCulture> v=new Vector<ParcelleCulture>();
             while(rs.next())
             {
-                v.add(new ParcelleCulture(rs.getInt(1),rs.getTimestamp(2),rs.getInt(3),rs.getInt(4),rs.getInt(5)));
+                v.add(new ParcelleCulture(rs.getInt(1),rs.getTimestamp(2),rs.getInt(3),rs.getInt(4)));
             }
             ParcelleCulture[] lParcelleCulture=new ParcelleCulture[v.size()];
             v.copyInto(lParcelleCulture);
@@ -100,13 +89,13 @@ public class ParcelleCulture {
     public void insertPC(ParcelleCulture inserer, Connexion c) throws Exception {
         try {
             Connection cc = c.getConnection();
-            String query = "INSERT INTO ParcelleCulture(daty,idp,idcatecult,rendement) VALUES (?,?,?,?)";
+            String query = "INSERT INTO ParcelleCulture(daty,idp,idcatecult) VALUES (?,?,?)";
             
             try (PreparedStatement pstmt = cc.prepareStatement(query)) {
                 pstmt.setTimestamp(1, inserer.getDaty());
                 pstmt.setInt(2, inserer.getIdParcelle());
                 pstmt.setInt(3, inserer.getIdCateCult());
-                pstmt.setInt(4, inserer.getRendement());
+
                 int rep = pstmt.executeUpdate();
                 System.out.println(rep);
             } 

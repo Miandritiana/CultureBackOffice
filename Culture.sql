@@ -80,14 +80,14 @@ CREATE TABLE phototerrain (
     photo varchar(100)
 );
 INSERT INTO phototerrain (idterrain,photo) values (2,'terrain1.jpg');
+
 CREATE TABLE categorieculture (
     idcatecult serial PRIMARY KEY,
     nomcatecult varchar(100),
-    prix double precision --/m2
+    rendement integer --kg/m2
 );
 INSERT INTO categorieculture (nomcatecult, prix) VALUES ('Katsaka', 20000);
 INSERT INTO categorieculture (nomcatecult, prix) VALUES ('Vary', 15000);
-INSERT INTO categorieculture (nomcatecult, prix) VALUES ('Ovy', 15000);
 
 
 CREATE TABLE parcelleculture (
@@ -95,19 +95,11 @@ CREATE TABLE parcelleculture (
     daty timestamp,
     idp integer references parcelle(idp),
     idcatecult integer references categorieculture(idcatecult),
-    rendement integer --kg/m2
 );
 INSERT INTO parcelleculture (daty, idp, idcatecult, rendement) VALUES
 ('2024-01-23 12:00:00', 1, 1, 300),
 ('2024-02-24 14:30:00', 2, 2, 500),
 ('2024-03-25 10:45:00', 3, 2, 400);
-INSERT INTO parcelleculture (daty, idp, idcatecult, rendement) VALUES
-('2024-01-23 12:00:00', 1, 1, 300),
-('2024-02-24 14:30:00', 2, 2, 700);
-
-INSERT INTO parcelleculture (daty, idp, idcatecult, rendement) VALUES
-('2024-01-23 12:00:00', 1, 3, 300),
-('2024-02-24 14:30:00', 2, 3, 200);
 
 --------Statistique
 SELECT
@@ -177,3 +169,12 @@ CREATE TABLE discussion (
 
 1 - 3
 3 - 1
+
+
+CREATE TABLE saison (
+    idDiscu serial PRIMARY KEY,
+    daty timestamp, 
+    idUserSend integer references useruser(iduser),
+    idUserReceive integer references useruser(iduser),
+    message varchar(250)
+);

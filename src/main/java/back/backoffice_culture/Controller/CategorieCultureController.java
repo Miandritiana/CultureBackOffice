@@ -32,11 +32,11 @@ public class CategorieCultureController {
     }
 
     @PostMapping("/insert")
-    public ResponseEntity<String> insertCategorieCulture(@RequestParam String nom, @RequestParam double prix) {
+    public ResponseEntity<String> insertCategorieCulture(@RequestParam String nom, @RequestParam int rendement) {
         Connexion c = new Connexion();
 
         try {
-            CategorieCulture CategorieCulture = new CategorieCulture(nom, prix);
+            CategorieCulture CategorieCulture = new CategorieCulture(nom, rendement);
             CategorieCulture.insertCategorieCulture(CategorieCulture, c);
 
             return ResponseEntity.ok("CategorieCulture insérée avec succès");
@@ -51,7 +51,7 @@ public class CategorieCultureController {
     public void update(@RequestParam int id,@RequestParam String nom, @RequestParam double prix) throws Exception {
         Connexion c = new Connexion();
         CategorieCulture cateCult = new CategorieCulture();
-        cateCult.updateCategorieCulture(id, nom, prix, c); 
+        cateCult.updateCategorieCulture(id, nom, c);
     }
     
     @DeleteMapping("/delete")

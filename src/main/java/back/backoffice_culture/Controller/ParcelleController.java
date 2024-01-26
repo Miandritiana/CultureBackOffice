@@ -48,12 +48,12 @@ public class ParcelleController {
     }
 
     @PostMapping("/insertParcelleCulture")
-    public ResponseEntity<String> insertParcelleCulture(@RequestParam String nomParcelle,@RequestParam int taille,@RequestParam Timestamp daty,@RequestParam int idCateCult,@RequestParam int rendement,@RequestParam int idTerrain) {
+    public ResponseEntity<String> insertParcelleCulture(@RequestParam String nomParcelle,@RequestParam int taille,@RequestParam Timestamp daty,@RequestParam int idCateCult,@RequestParam int idTerrain) {
         Connexion c = new Connexion();
 
         try {
             Parcelle parcelle = new Parcelle();
-            parcelle.insertParcelleCulture(nomParcelle, taille, daty, idCateCult, rendement,idTerrain,c);
+            parcelle.insertParcelleCulture(nomParcelle, taille, daty, idCateCult,idTerrain,c);
 
             return ResponseEntity.ok("Parcelle insérée avec succès");
         } catch (Exception e) {

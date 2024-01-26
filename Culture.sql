@@ -80,8 +80,8 @@ CREATE TABLE categorieculture (
     nomcatecult varchar(100),
     prix double precision --/m2
 );
-INSERT INTO categorieculture (nomcatecult, prix) VALUES ('Fleurs', 20000);
-INSERT INTO categorieculture (nomcatecult, prix) VALUES ('Herbes aromatiques', 15000);
+INSERT INTO categorieculture (nomcatecult, prix) VALUES ('Katsaka', 20000);
+INSERT INTO categorieculture (nomcatecult, prix) VALUES ('Vary', 15000);
 
 
 CREATE TABLE parcelleculture (

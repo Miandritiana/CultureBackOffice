@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import back.backoffice_culture.Models.Parcelle;
+import back.backoffice_culture.Models.ViewTerrainAValider;
 import back.backoffice_culture.Models.Connexion;
 
 @SpringBootApplication
@@ -20,6 +21,24 @@ public class BackofficeCultureApplication {
 		for (int i = 0; i < l_cu.length; i++) {
 			System.out.println(l_cu[i].getNomParcelle());
 		}
+		ViewTerrainAValider tv = new ViewTerrainAValider();
+
+		ViewTerrainAValider[] terrainsAValider = tv.selectTerrainAValider(c);
+
+        if (terrainsAValider != null) {
+            for (ViewTerrainAValider terrain : terrainsAValider) {
+                System.out.println("ID Terrain : " + terrain.getIdTerrain());
+                System.out.println("Description : " + terrain.getDescription());
+                System.out.println("Geolocalisation : " + terrain.getGeolocalisation());
+                System.out.println("Status : " + terrain.getStatus());
+                System.out.println("ID User : " + terrain.getIdUser());
+                System.out.println("Nom User : " + terrain.getNomUser());
+                System.out.println("Photo : " + terrain.getPhoto());
+                System.out.println("------------------------------------------");
+            }
+        } else {
+            System.out.println("Aucun terrain à valider trouvé.");
+        }
 	}
 
 }

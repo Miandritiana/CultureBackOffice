@@ -142,7 +142,9 @@ public class TerrainController {
         Connexion c = new Connexion();
 
         try {
-            ViewTerrainAValider[] terrainDetails = ViewTerrainAValider.selectTerrainAValider(c);
+            ViewTerrainAValider tv = new ViewTerrainAValider();
+
+		    ViewTerrainAValider[] terrainDetails = tv.selectTerrainAValider(c);
 
             if (terrainDetails != null) {
                 return terrainDetails;

@@ -5,6 +5,7 @@ CREATE TABLE useruser (
     idAdmin boolean default false
 );
 INSERT INTO useruser (nomuser, password, idAdmin) VALUES ('Admin', '123', true);
+INSERT INTO useruser (nomuser, password) VALUES ('Rasoa', '123');
 
 
 CREATE TABLE terrain (
@@ -38,6 +39,9 @@ INSERT INTO terrainparcelle (idterrain, idp) VALUES
 (1, 1),
 (1, 2);
 
+INSERT INTO terrainparcelle (idterrain, idp) VALUES
+(2, 3);
+
 CREATE TABLE terrainuser (
     idterrainuser serial PRIMARY KEY,
     idterrain integer references terrain(idterrain),
@@ -45,7 +49,8 @@ CREATE TABLE terrainuser (
 );
 INSERT INTO terrainuser (idterrain, iduser) VALUES
 (1, 2);
-
+INSERT INTO terrainuser (idterrain, iduser) VALUES
+(2, 3);
 --------View ListeTerrain 
 
 CREATE VIEW viewDetailsTerrain AS
@@ -74,7 +79,7 @@ CREATE TABLE phototerrain (
     idterrain integer references terrain(idterrain),
     photo varchar(100)
 );
-
+INSERT INTO phototerrain (idterrain,photo) values (2,'terrain1.jpg');
 CREATE TABLE categorieculture (
     idcatecult serial PRIMARY KEY,
     nomcatecult varchar(100),

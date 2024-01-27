@@ -2,10 +2,14 @@ package back.backoffice_culture;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import com.mongodb.client.MongoClient;
 
 import back.backoffice_culture.Models.Parcelle;
 import back.backoffice_culture.Models.ViewTerrainAValider;
 import back.backoffice_culture.Models.Connexion;
+import back.backoffice_culture.Models.DiscussionRepository;
 
 @SpringBootApplication
 public class BackofficeCultureApplication {
@@ -39,6 +43,8 @@ public class BackofficeCultureApplication {
         } else {
             System.out.println("Aucun terrain à valider trouvé.");
         }
+
+        
 	}
 
 }

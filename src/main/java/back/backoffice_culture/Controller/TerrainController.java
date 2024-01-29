@@ -29,11 +29,11 @@ import back.backoffice_culture.Models.ViewTerrainAValider;
 public class TerrainController {
 
     @GetMapping("/status")
-    public ViewDetailsTerrain[] getTerrainDetailsByStatus(@RequestParam int status) {
+    public ViewDetailsTerrain[] getTerrainDetailsByStatus(@RequestParam int status,@RequestParam int idUser) {
         Connexion c = new Connexion();
 
         try {
-            ViewDetailsTerrain[] terrainDetails = ViewDetailsTerrain.selectTerrainDetailsWithStatus(c, status);
+            ViewDetailsTerrain[] terrainDetails = ViewDetailsTerrain.selectTerrainDetailsWithStatus(c, status,idUser);
 
             if (terrainDetails != null) {
                 return terrainDetails;

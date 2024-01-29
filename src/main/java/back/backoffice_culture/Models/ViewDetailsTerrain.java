@@ -131,13 +131,14 @@ public class ViewDetailsTerrain {
     public void setPhoto(String photo) {
         this.photo = photo;
     }    
-    public static ViewDetailsTerrain[] selectTerrainDetailsWithStatus(Connexion c, int status) {
+    public static ViewDetailsTerrain[] selectTerrainDetailsWithStatus(Connexion c, int status,int idUser) {
         try {
             Connection cc = c.getConnection();
-            String query = "SELECT * FROM viewDetailsTerrain WHERE status = ?";
+            String query = "SELECT * FROM viewDetailsTerrain WHERE status = ? AND iduser != ? ";
 
             try (PreparedStatement pstmt = cc.prepareStatement(query)) {
                 pstmt.setInt(1, status);
+                pstmt.setInt(2, idUser);
                 ResultSet rs = pstmt.executeQuery();
 
                 Vector<ViewDetailsTerrain> v = new Vector<>();

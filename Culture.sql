@@ -187,6 +187,11 @@ CREATE TABLE recolte (
     recolte integer
 );
 
+INSERT INTO recolte (dateRecolte, idParcelle, idTerrain, recolte) VALUES
+('2024-04-23 12:00:00', 1, 1,10000),
+('2024-05-24 14:30:00', 2, 1,20000),
+('2024-05-26 15:30:00', 3, 2,30000)
+
 --------Statistique
 SELECT
     cc.nomcatecult AS categorie,

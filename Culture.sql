@@ -99,7 +99,7 @@ CREATE TABLE parcelleculture (
     idpc serial PRIMARY KEY,
     daty timestamp,
     idp integer references parcelle(idp),
-    idcatecult integer references categorieculture(idcatecult),
+    idcatecult integer references categorieculture(idcatecult)
 );
 INSERT INTO parcelleculture (daty, idp, idcatecult) VALUES
 ('2024-01-23 12:00:00', 1, 1),

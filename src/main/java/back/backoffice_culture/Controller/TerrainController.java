@@ -115,8 +115,7 @@ public class TerrainController {
 
     @PutMapping("/valider")
     public ResponseEntity<String> validerTerrain(
-            @RequestParam("idTerrain") int idTerrain,
-            @RequestParam("idUser") int idUser) {
+            @RequestParam("idTerrain") int idTerrain) {
         try {
             Connexion c = new Connexion();  
             Terrain terrain = new Terrain();

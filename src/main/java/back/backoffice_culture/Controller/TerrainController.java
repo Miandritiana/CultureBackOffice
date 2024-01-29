@@ -113,7 +113,7 @@ public class TerrainController {
     //     }
     // }
 
-    @PutMapping("/valider")
+    @PostMapping("/valider")
     public ResponseEntity<String> validerTerrain(
             @RequestParam("idTerrain") int idTerrain,
             @RequestParam("idUser") int idUser) {

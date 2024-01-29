@@ -17,6 +17,7 @@ import back.backoffice_culture.Models.User;
 @RequestMapping("/users")
 public class UserController {
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/checkLogin")
     public boolean checkLogin(@RequestParam("username") String nom, @RequestParam("password") String password) throws Exception {
         Connexion c = new Connexion();
@@ -33,6 +34,7 @@ public class UserController {
         return isAdmin;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/user")
     public ResponseEntity<String> insertUser(@RequestParam String username, @RequestParam String password) {
         Connexion c = new Connexion();

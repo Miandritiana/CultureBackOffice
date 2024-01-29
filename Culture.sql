@@ -51,6 +51,9 @@ INSERT INTO terrainuser (idterrain, iduser) VALUES
 (1, 2);
 INSERT INTO terrainuser (idterrain, iduser) VALUES
 (2, 3);
+
+INSERT INTO terrainuser (idterrain, iduser) VALUES
+(3, 2);
 --------View ListeTerrain 
 
 CREATE VIEW viewDetailsTerrain AS
@@ -80,6 +83,8 @@ CREATE TABLE phototerrain (
     photo varchar(100)
 );
 INSERT INTO phototerrain (idterrain,photo) values (2,'terrain1.jpg');
+
+INSERT INTO phototerrain (idterrain,photo) values (3,'terrain1.jpg');
 
 CREATE TABLE categorieculture (
     idcatecult serial PRIMARY KEY,

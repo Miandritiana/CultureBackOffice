@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -95,6 +96,23 @@ public class TerrainController {
     }
 
 
+    // @PostMapping("/valider")
+    // public ResponseEntity<String> validerTerrain(
+    //         @RequestParam("idTerrain") int idTerrain,
+    //         @RequestParam("idParcelle") int idParcelle,
+    //         @RequestParam("idUser") int idUser) {
+    //     try {
+    //         Connexion c = new Connexion();  
+    //         Terrain Terrain = new Terrain();
+
+    //         Terrain.validerTerrain(idTerrain, c);
+    //         return ResponseEntity.ok("Terrain validé avec succès.");
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //         return ResponseEntity.status(500).body("Une erreur s'est produite lors de la validation du terrain.");
+    //     }
+    // }
+
     @PostMapping("/valider")
     public ResponseEntity<String> validerTerrain(
             @RequestParam("idTerrain") int idTerrain,
@@ -102,15 +120,21 @@ public class TerrainController {
             @RequestParam("idUser") int idUser) {
         try {
             Connexion c = new Connexion();  
-            Terrain Terrain = new Terrain();
+            Terrain terrain = new Terrain();
 
-            Terrain.validerTerrain(idTerrain, c);
+            terrain.validerTerrain(idTerrain, c);
             return ResponseEntity.ok("Terrain validé avec succès.");
+        } catch (TransactionException e) {
+            // Log or handle specific validation exception
+            e.printStackTrace();
+            return ResponseEntity.status(400).body("Validation du terrain échouée: " + e.getMessage());
         } catch (Exception e) {
+            // Log or handle other exceptions
             e.printStackTrace();
             return ResponseEntity.status(500).body("Une erreur s'est produite lors de la validation du terrain.");
         }
     }
+
 
     @PutMapping("/update")
     public ResponseEntity<String> updateTerrain(

@@ -28,7 +28,7 @@ import back.backoffice_culture.Models.ViewTerrainAValider;
 @RequestMapping("/terrains")
 public class TerrainController {
 
-    @GetMapping("/status")
+    @GetMapping("/terrain")
     public ViewDetailsTerrain[] getTerrainDetailsByStatus(@RequestParam int status) {
         Connexion c = new Connexion();
 
@@ -47,7 +47,7 @@ public class TerrainController {
         }
     }
 
-    @GetMapping("/id")
+    @GetMapping("/terrain")
     public ViewDetailsTerrain[] getTerrainDetailsById(@RequestParam int idUser) {
         Connexion c = new Connexion();
 

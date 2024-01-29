@@ -28,7 +28,7 @@ import back.backoffice_culture.Models.ViewTerrainAValider;
 @RequestMapping("/terrains")
 public class TerrainController {
 
-    @GetMapping("/terrain")
+    @GetMapping("/status")
     public ViewDetailsTerrain[] getTerrainDetailsByStatus(@RequestParam int status) {
         Connexion c = new Connexion();
 

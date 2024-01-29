@@ -18,7 +18,7 @@ import back.backoffice_culture.Models.*;
 @RequestMapping("/categoriecultures")
 public class CategorieCultureController {
 
-    @GetMapping("/")
+    @GetMapping("/categorieculture")
     public CategorieCulture[] getAllCategorieCultures() {
         Connexion c = new Connexion();
         CategorieCulture ccult = new CategorieCulture();
@@ -31,7 +31,7 @@ public class CategorieCultureController {
         }
     }
 
-    @PostMapping("/insert")
+    @PostMapping("/categorieculture")
     public ResponseEntity<String> insertCategorieCulture(@RequestParam String nom, @RequestParam int rendement) {
         Connexion c = new Connexion();
 
@@ -47,14 +47,14 @@ public class CategorieCultureController {
         }
     }
 
-    @PutMapping("/update")
+    @PutMapping("/categorieculture")
     public void update(@RequestParam int id,@RequestParam String nom, @RequestParam int rendement) throws Exception {
         Connexion c = new Connexion();
         CategorieCulture cateCult = new CategorieCulture();
         cateCult.updateCategorieCulture(id, nom,rendement, c);
     }
     
-    @DeleteMapping("/delete")
+    @DeleteMapping("/categorieculture")
     public void delete(@RequestParam int id) throws Exception {
         Connexion c = new Connexion();
         CategorieCulture cateCult = new CategorieCulture();

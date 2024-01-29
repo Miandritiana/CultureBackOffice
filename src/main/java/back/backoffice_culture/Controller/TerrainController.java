@@ -46,6 +46,24 @@ public class TerrainController {
             throw new RuntimeException("Erreur lors de la récupération des détails du terrain : " + e.getMessage());
         }
     }
+    @GetMapping("/terrains")
+    public ViewDetailsTerrain[] getTerrainDetails(@RequestParam int status) {
+        Connexion c = new Connexion();
+
+        try {
+            ViewDetailsTerrain[] terrainDetails = ViewDetailsTerrain.selectTerrainDetailsWithStatus(c, status);
+
+            if (terrainDetails != null) {
+                return terrainDetails;
+            } else {
+                throw new RuntimeException("Erreur lors de la récupération des détails du terrain.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erreur lors de la récupération des détails du terrain : " + e.getMessage());
+        }
+    }
 
     @GetMapping("/terrain")
     public ViewDetailsTerrain[] getTerrainDetailsById(@RequestParam int idUser) {

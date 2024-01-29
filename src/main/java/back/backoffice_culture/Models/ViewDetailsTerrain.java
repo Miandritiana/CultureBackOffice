@@ -167,6 +167,41 @@ public class ViewDetailsTerrain {
         }
     }
 
+    public static ViewDetailsTerrain[] selectTerrainDetailsWithStatus(Connexion c, int status) {
+        try {
+            Connection cc = c.getConnection();
+            String query = "SELECT * FROM viewDetailsTerrain WHERE status = ?";
+
+            try (PreparedStatement pstmt = cc.prepareStatement(query)) {
+                pstmt.setInt(1, status);
+                ResultSet rs = pstmt.executeQuery();
+
+                Vector<ViewDetailsTerrain> v = new Vector<>();
+                while (rs.next()) {
+                    v.add(new ViewDetailsTerrain(
+                            rs.getInt("idterrain"),
+                            rs.getString("description"),
+                            rs.getString("geolocalisation"),
+                            rs.getInt("status"),
+                            rs.getInt("idp"),
+                            rs.getString("nomp"),
+                            rs.getInt("taille"),
+                            rs.getInt("iduser"),
+                            rs.getString("nomuser"),
+                            rs.getString("photo")
+                    ));
+                }
+
+                ViewDetailsTerrain[] resultArray = new ViewDetailsTerrain[v.size()];
+                v.copyInto(resultArray);
+                return resultArray;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static ViewDetailsTerrain[] selectTerrainDetailsById(Connexion c, int idUser) {
         try {
             Connection cc = c.getConnection();

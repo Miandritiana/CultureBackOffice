@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,9 +26,11 @@ import back.backoffice_culture.Models.ViewTerrainAValider;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/terrains")
 public class TerrainController {
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/status")
     public ViewDetailsTerrain[] getTerrainDetailsByStatus(@RequestParam int status,@RequestParam int idUser) {
         Connexion c = new Connexion();
@@ -46,6 +49,8 @@ public class TerrainController {
             throw new RuntimeException("Erreur lors de la récupération des détails du terrain : " + e.getMessage());
         }
     }
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/terrains")
     public ViewDetailsTerrain[] getTerrainDetails(@RequestParam int status) {
         Connexion c = new Connexion();
@@ -65,6 +70,7 @@ public class TerrainController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/terrain")
     public ViewDetailsTerrain[] getTerrainDetailsById(@RequestParam int idUser) {
         Connexion c = new Connexion();
@@ -84,6 +90,7 @@ public class TerrainController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/demandeterrain")
     public ResponseEntity<String> demandeTerrain(
             @RequestParam String desc,
@@ -131,6 +138,7 @@ public class TerrainController {
     //     }
     // }
 
+    @CrossOrigin(origins = "*")
     @PutMapping("/valider")
     public ResponseEntity<String> validerTerrain(
             @RequestParam("idTerrain") int idTerrain) {
@@ -151,7 +159,7 @@ public class TerrainController {
         }
     }
 
-
+    @CrossOrigin(origins = "*")
     @PutMapping("/update")
     public ResponseEntity<String> updateTerrain(
             @RequestParam int idTerrain,
@@ -177,6 +185,7 @@ public class TerrainController {
         }
     }
     
+    @CrossOrigin(origins = "*")
     @GetMapping("/avalider")
     public ViewTerrainAValider[] getTerrainAValider() {
         Connexion c = new Connexion();

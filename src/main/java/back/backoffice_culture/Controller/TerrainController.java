@@ -113,7 +113,7 @@ public class TerrainController {
     //     }
     // }
 
-    @PostMapping("/valider")
+    @PutMapping("/valider")
     public ResponseEntity<String> validerTerrain(
             @RequestParam("idTerrain") int idTerrain,
             @RequestParam("idUser") int idUser) {
@@ -121,7 +121,7 @@ public class TerrainController {
             Connexion c = new Connexion();  
             Terrain terrain = new Terrain();
 
-            terrain.validerTerrain(idTerrain, c);
+            terrain.updateTerrainStatus(idTerrain, c);
             return ResponseEntity.ok("Terrain validé avec succès.");
         } catch (TransactionException e) {
             // Log or handle specific validation exception

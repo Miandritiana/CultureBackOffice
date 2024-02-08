@@ -133,17 +133,18 @@ public class ViewListeCulture {
             if(idCulture == null)
             {
                 idCulture = 0;
-            }
-            if(nom == null)
-            {
-                nom = "";
-            }
+                queryBuilder.append(" AND idcatecult is null");
 
-            if (idCulture != null && idCulture != 0) {
+            }else{
                 queryBuilder.append(" AND idcatecult = ?");
             }
 
-            if (nom != null && !nom.isEmpty()) {
+            if(nom == null || nom.isEmpty())
+            {
+                nom = "";
+                queryBuilder.append(" AND nomUser is null");
+
+            }else{
                 queryBuilder.append(" AND nomUser = ?");
             }
 

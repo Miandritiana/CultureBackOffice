@@ -45,7 +45,7 @@ public class BackofficeCultureApplication {
         // }
 
         ViewListeCulture test = new ViewListeCulture();
-        ViewListeCulture[] l = test.selectViewListeCulture(c, 0, "Rasoa");
+        ViewListeCulture[] l = test.selectViewListeCulture(c, 2, "Rasoa");
         for (ViewListeCulture vv : l)
         {
             System.out.println(vv.getNomCulture());

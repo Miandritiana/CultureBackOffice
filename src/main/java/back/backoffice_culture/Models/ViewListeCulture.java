@@ -154,9 +154,9 @@ public class ViewListeCulture {
                 if (idCulture != null && idCulture != 0) {
                     pstmt.setInt(parameterIndex++, idCulture);
                 }
-
+                
                 if (nom != null && !nom.isEmpty()) {
-                    pstmt.setString(parameterIndex, nom);
+                    pstmt.setString(parameterIndex++, nom); // Increment the parameter index here
                 }
 
                 ResultSet rs = pstmt.executeQuery();

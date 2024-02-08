@@ -42,10 +42,6 @@ public class UserController {
         
         int idUser = user.checkLogin(c, nom, password);
         System.out.println("idUser"+idUser);
-        if (idUser != 0) {
-            throw new IllegalArgumentException("L'ID utilisateur n'est pas valide");
-        }
-    
         return idUser;
     }
 

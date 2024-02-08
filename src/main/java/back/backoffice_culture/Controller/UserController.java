@@ -35,6 +35,21 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "*")
+    @GetMapping("/checkLoginMobile")
+    public int checkLoginMobile(@RequestParam("username") String nom, @RequestParam("password") String password) throws Exception {
+        Connexion c = new Connexion();
+        User user = new User();
+        
+        int idUser = user.checkLogin(c, nom, password);
+        System.out.println("idUser"+idUser);
+        if (idUser != 0) {
+            throw new IllegalArgumentException("L'ID utilisateur n'est pas valide");
+        }
+    
+        return idUser;
+    }
+
+    @CrossOrigin(origins = "*")
     @PostMapping("/user")
     public ResponseEntity<String> insertUser(@RequestParam String username, @RequestParam String password) {
         Connexion c = new Connexion();

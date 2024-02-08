@@ -130,6 +130,15 @@ public class ViewListeCulture {
             Connection cc = c.getConnection();
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM viewListeCulture WHERE 1=1");
 
+            if(idCulture == null)
+            {
+                idCulture = 0;
+            }
+            if(nom == null)
+            {
+                nom = "";
+            }
+
             if (idCulture != null && idCulture != 0) {
                 queryBuilder.append(" AND idcatecult = ?");
             }

@@ -64,4 +64,54 @@ public class TerrainMobile {
             return null;
         }
     }
+
+
+    public int getIdTerrain() {
+        return idTerrain;
+    }
+
+
+    public void setIdTerrain(int idTerrain) {
+        this.idTerrain = idTerrain;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
+
+    public String getNomUser() {
+        return nomUser;
+    }
+
+
+    public void setNomUser(String nomUser) {
+        this.nomUser = nomUser;
+    }
+
+
+    public String getPhoto() {
+        return photo;
+    }
+
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 }

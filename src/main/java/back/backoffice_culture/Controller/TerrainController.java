@@ -19,6 +19,7 @@ import back.backoffice_culture.Models.CategorieCulture;
 import back.backoffice_culture.Models.Connexion;
 import back.backoffice_culture.Models.PhotoTerrain;
 import back.backoffice_culture.Models.Terrain;
+import back.backoffice_culture.Models.TerrainMobile;
 import back.backoffice_culture.Models.TerrainUser;
 import back.backoffice_culture.Models.User;
 import back.backoffice_culture.Models.ViewDetailsTerrain;
@@ -206,4 +207,45 @@ public class TerrainController {
             throw new RuntimeException("Erreur lors de la récupération des détails du terrain : " + e.getMessage());
         }
     }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/terrainMobile")
+    public TerrainMobile[] getTerrainById(@RequestParam int idUser) {
+        Connexion c = new Connexion();
+
+        try {
+            TerrainMobile[] terrain = TerrainMobile.selectTerrainsById(c,idUser);
+
+            if (terrain != null) {
+                return terrain;
+            } else {
+                throw new RuntimeException("Erreur lors de la récupération des terrains.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erreur lors de la récupération des terrains : " + e.getMessage());
+        }
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/details")
+    public ViewDetailsTerrain[] getTerrainDetailsByTerrains(@RequestParam int idUser,@RequestParam int idTerrain) {
+        Connexion c = new Connexion();
+
+        try {
+            ViewDetailsTerrain[] terrainDetails = ViewDetailsTerrain.selectTerrainDetailsByTerrain(c,idUser,idTerrain);
+
+            if (terrainDetails != null) {
+                return terrainDetails;
+            } else {
+                throw new RuntimeException("Erreur lors de la récupération des détails du terrain.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erreur lors de la récupération des détails du terrain : " + e.getMessage());
+        }
+    }
+
 }

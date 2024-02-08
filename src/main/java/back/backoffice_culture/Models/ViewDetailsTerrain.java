@@ -236,6 +236,7 @@ public class ViewDetailsTerrain {
             return null;
         }
     }
+
     
     public static ViewDetailsTerrain[] selectTerrainDetailsExceptById(Connexion c, int idUserToExclude) {
         try {
@@ -272,4 +273,40 @@ public class ViewDetailsTerrain {
         }
     }
     
+    public static ViewDetailsTerrain[] selectTerrainDetailsByTerrain(Connexion c, int idUser,int idTerrain) {
+        try {
+            Connection cc = c.getConnection();
+            String query = "SELECT * FROM viewDetailsTerrain WHERE iduser = ? and status =1 and idTerrain=?";
+
+            try (PreparedStatement pstmt = cc.prepareStatement(query)) {
+                pstmt.setInt(1, idUser);
+                pstmt.setInt(2, idTerrain);
+                ResultSet rs = pstmt.executeQuery();
+
+                Vector<ViewDetailsTerrain> v = new Vector<>();
+                while (rs.next()) {
+                    v.add(new ViewDetailsTerrain(
+                            rs.getInt("idterrain"),
+                            rs.getString("description"),
+                            rs.getString("geolocalisation"),
+                            rs.getInt("status"),
+                            rs.getInt("idp"),
+                            rs.getString("nomp"),
+                            rs.getInt("taille"),
+                            rs.getInt("iduser"),
+                            rs.getString("nomuser"),
+                            rs.getString("photo")
+                    ));
+                }
+
+                ViewDetailsTerrain[] resultArray = new ViewDetailsTerrain[v.size()];
+                v.copyInto(resultArray);
+                return resultArray;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

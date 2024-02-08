@@ -38,7 +38,7 @@ public class TerrainMobile {
     public static TerrainMobile[] selectTerrainsById(Connexion c, int idUser) {
         try {
             Connection cc = c.getConnection();
-            String query = "SELECT idterrain,description,iduser,nomuser,photo FROM viewDetailsTerrain WHERE iduser = ? and status =1";
+            String query = "SELECT  distinct(idterrain),description,iduser,nomuser,photo FROM viewDetailsTerrain WHERE iduser = ? and status =1";
 
             try (PreparedStatement pstmt = cc.prepareStatement(query)) {
                 pstmt.setInt(1, idUser);

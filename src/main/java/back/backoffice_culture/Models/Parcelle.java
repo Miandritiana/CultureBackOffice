@@ -93,14 +93,14 @@ public class Parcelle {
         return idParcelle;
     }
 
-    public void insertParcelleCulture(String nomP,int taille,Timestamp daty,int idCateCult,int idTerrain,Connexion c)
+    public void insertParcelleCulture(String nomP,int taille,int idTerrain,Connexion c)
     {
         try {
             Parcelle Parcelle = new Parcelle(nomP,taille);
             int idParcelle=Parcelle.insertParcelle(Parcelle, c);
 
-            ParcelleCulture ParcelleCulture = new ParcelleCulture(daty,idParcelle,idCateCult);
-            ParcelleCulture.insertPC(ParcelleCulture,c);
+            // ParcelleCulture ParcelleCulture = new ParcelleCulture(daty,idParcelle,idCateCult);
+            // ParcelleCulture.insertPC(ParcelleCulture,c);
 
             TerrainParcelle TerrainParcelle = new TerrainParcelle(idTerrain,idParcelle);
             TerrainParcelle.insertTerrainParcelle(TerrainParcelle,c);

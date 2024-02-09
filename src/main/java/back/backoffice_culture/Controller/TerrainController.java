@@ -106,8 +106,8 @@ public class TerrainController {
             TerrainUser terrainUser = new TerrainUser(idTerrain, idUser);
             terrainUser.insertTerrainUser(terrainUser, c);
 
-            String photoFileName = idTerrain + "_" + photoFile.getOriginalFilename();
-            String uploadPath = "uploads/";
+            String photoFileName = photoFile.getOriginalFilename();
+            String uploadPath = "src/main/resources/static/images/";
 
             Files.write(Paths.get(uploadPath + photoFileName), photoFile.getBytes());
 
@@ -171,8 +171,8 @@ public class TerrainController {
             Terrain terrain = new Terrain();
             terrain.updateTerrain(idTerrain, desc, c);
     
-            String photoFileName = idTerrain + "_" + photoFile.getOriginalFilename();
-            String uploadPath = "uploads/";
+            String photoFileName = photoFile.getOriginalFilename();
+            String uploadPath = "src/main/resources/static/images/";
     
             Files.write(Paths.get(uploadPath + photoFileName), photoFile.getBytes());
     

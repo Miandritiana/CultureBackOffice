@@ -125,26 +125,77 @@ public class ViewListeCulture {
             return null;
         }
     }
+
+    // public static ViewListeCulture[] selectViewListeCulture(Connexion c, Integer idCulture, String nom) {
+    //     try {
+    //         Connection cc = c.getConnection();
+    //         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM viewListeCulture WHERE 1=1");
+
+    //         if(idCulture == null)
+    //         {
+    //             idCulture = 0;
+    //             queryBuilder.append(" AND idcatecult is null");
+
+    //         }else{
+    //             queryBuilder.append(" AND idcatecult = ?");
+    //         }
+
+    //         if(nom == null || nom.isEmpty())
+    //         {
+    //             nom = "";
+    //             queryBuilder.append(" AND nomUser is null");
+
+    //         }else{
+    //             queryBuilder.append(" AND nomUser = ?");
+    //         }
+
+    //         try (PreparedStatement pstmt = cc.prepareStatement(queryBuilder.toString())) {
+    //             int parameterIndex = 1;
+
+    //             if (idCulture != null && idCulture != 0) {
+    //                 pstmt.setInt(parameterIndex++, idCulture);
+    //             }
+                
+    //             if (nom != null && !nom.isEmpty()) {
+    //                 pstmt.setString(parameterIndex++, nom); // Increment the parameter index here
+    //             }
+
+    //             ResultSet rs = pstmt.executeQuery();
+
+    //             Vector<ViewListeCulture> v = new Vector<>();
+    //             while (rs.next()) {
+    //                 v.add(new ViewListeCulture(
+    //                         rs.getInt("idterrain"),
+    //                         rs.getInt("idparcelle"),
+    //                         rs.getInt("iduser"),
+    //                         rs.getInt("idcatecult"),
+    //                         rs.getString("nomculture"),
+    //                         rs.getString("nomterrain"),
+    //                         rs.getString("nomp"),
+    //                         rs.getString("nomuser")
+    //                 ));
+    //             }
+
+    //             ViewListeCulture[] resultArray = new ViewListeCulture[v.size()];
+    //             v.copyInto(resultArray);
+    //             return resultArray;
+    //         }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    //     return null;
+    // }
+
     public static ViewListeCulture[] selectViewListeCulture(Connexion c, Integer idCulture, String nom) {
         try {
             Connection cc = c.getConnection();
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM viewListeCulture WHERE 1=1");
 
-            if(idCulture == null)
-            {
-                idCulture = 0;
-                queryBuilder.append(" AND idcatecult is null");
-
-            }else{
+            if (idCulture != null && idCulture != 0) {
                 queryBuilder.append(" AND idcatecult = ?");
             }
 
-            if(nom == null || nom.isEmpty())
-            {
-                nom = "";
-                queryBuilder.append(" AND nomUser is null");
-
-            }else{
+            if (nom != null && !nom.isEmpty()) {
                 queryBuilder.append(" AND nomUser = ?");
             }
 
@@ -154,9 +205,9 @@ public class ViewListeCulture {
                 if (idCulture != null && idCulture != 0) {
                     pstmt.setInt(parameterIndex++, idCulture);
                 }
-                
+
                 if (nom != null && !nom.isEmpty()) {
-                    pstmt.setString(parameterIndex++, nom); // Increment the parameter index here
+                    pstmt.setString(parameterIndex, nom);
                 }
 
                 ResultSet rs = pstmt.executeQuery();
@@ -184,5 +235,4 @@ public class ViewListeCulture {
         }
         return null;
     }
-
 }

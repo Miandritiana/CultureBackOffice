@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Vector;
 public class Recolte {
      int idRecolte;
-     Date dateRecolte;
+     timestamp dateRecolte;
      int idParcelle;
      int idTerrain;
      int recolte;
@@ -18,6 +18,13 @@ public class Recolte {
 
     public Recolte(int idRecolte, Date dateRecolte, int idParcelle, int idTerrain, int recolte) {
         this.idRecolte = idRecolte;
+        this.dateRecolte = dateRecolte;
+        this.idParcelle = idParcelle;
+        this.idTerrain = idTerrain;
+        this.recolte = recolte;
+    }
+
+    public Recolte(Date dateRecolte, int idParcelle, int idTerrain, int recolte) {
         this.dateRecolte = dateRecolte;
         this.idParcelle = idParcelle;
         this.idTerrain = idTerrain;

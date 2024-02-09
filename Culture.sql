@@ -186,7 +186,7 @@ CREATE TABLE saisonCulture (
 
 CREATE TABLE recolte (
     idRecolte serial PRIMARY KEY,
-    dateRecolte date,
+    dateRecolte timestamp,
     idParcelle integer,
     idTerrain integer,
     recolte integer

@@ -34,11 +34,14 @@ public class RecolteController {
     }
 
     @PostMapping("/insert")
-    public ResponseEntity<String> insertCategorieCulture(@RequestParam int idRecolte, @RequestParam Date dateRecolte, @RequestParam int idParcelle, @RequestParam int idTerrain, @RequestParam int rec) {
+    public ResponseEntity<String> insertCategorieCulture(@RequestParam int idRecolte, @RequestParam String dateRecolte, @RequestParam int idParcelle, @RequestParam int idTerrain, @RequestParam int rec) {
         Connexion c = new Connexion();
 
         try {
-            Recolte recolte = new Recolte(idRecolte, dateRecolte, idParcelle,idTerrain, rec);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+            Timestamp dateInsert = new Timestamp(dateFormat.parse(dateRecolte).getTime());
+
+            Recolte recolte = new Recolte(idRecolte, dateInsert, idParcelle,idTerrain, rec);
             recolte.insertRecolte(c);
 
             return ResponseEntity.ok("saisonCulture insérée avec succès");
@@ -53,7 +56,7 @@ public class RecolteController {
         Connexion c = new Connexion();
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date dateInsert = (Date) dateFormat.parse(dateInsertStr);
+            Timestamp dateInsert = new Timestamp(dateFormat.parse(dateInsertStr).getTime());
 
             Recolte recolte = new Recolte(dateInsert, idParcelle, idTerrain, rec);
             recolte.insertRecolte(c);

@@ -1,14 +1,16 @@
 package back.backoffice_culture.Models;
 
+import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Vector;
+
 public class Recolte {
      int idRecolte;
-     timestamp dateRecolte;
+     Timestamp dateRecolte;
      int idParcelle;
      int idTerrain;
      int recolte;
@@ -16,7 +18,7 @@ public class Recolte {
     public Recolte() {
     }
 
-    public Recolte(int idRecolte, Date dateRecolte, int idParcelle, int idTerrain, int recolte) {
+    public Recolte(int idRecolte, Timestamp dateRecolte, int idParcelle, int idTerrain, int recolte) {
         this.idRecolte = idRecolte;
         this.dateRecolte = dateRecolte;
         this.idParcelle = idParcelle;
@@ -24,7 +26,7 @@ public class Recolte {
         this.recolte = recolte;
     }
 
-    public Recolte(Date dateRecolte, int idParcelle, int idTerrain, int recolte) {
+    public Recolte(Timestamp dateRecolte, int idParcelle, int idTerrain, int recolte) {
         this.dateRecolte = dateRecolte;
         this.idParcelle = idParcelle;
         this.idTerrain = idTerrain;
@@ -39,11 +41,11 @@ public class Recolte {
         this.idRecolte = idRecolte;
     }
 
-    public Date getDateRecolte() {
+    public Timestamp getDateRecolte() {
         return dateRecolte;
     }
 
-    public void setDateRecolte(Date dateRecolte) {
+    public void setDateRecolte(Timestamp dateRecolte) {
         this.dateRecolte = dateRecolte;
     }
 
@@ -82,7 +84,7 @@ public class Recolte {
             while (resultSet.next()) {
                 Recolte recolte = new Recolte();
                 recolte.setIdRecolte(resultSet.getInt("idRecolte"));
-                recolte.setDateRecolte(resultSet.getDate("dateRecolte"));
+                recolte.setDateRecolte(resultSet.getTimestamp("dateRecolte"));
                 recolte.setIdParcelle(resultSet.getInt("idParcelle"));
                 recolte.setIdTerrain(resultSet.getInt("idTerrain"));
                 recolte.setRecolte(resultSet.getInt("recolte"));
@@ -111,7 +113,7 @@ public class Recolte {
             connection = connexion.getConnection();
             String query = "INSERT INTO recolte (dateRecolte, idParcelle, idTerrain, recolte) VALUES (?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setDate(1, new java.sql.Date(this.dateRecolte.getTime()));
+            preparedStatement.setTimestamp(1, new java.sql.Timestamp(this.dateRecolte.getTime()));
             preparedStatement.setInt(2, this.idParcelle);
             preparedStatement.setInt(3, this.idTerrain);
             preparedStatement.setInt(4, this.recolte);
